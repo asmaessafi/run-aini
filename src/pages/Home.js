@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import { FiArrowRight, FiPlay, FiUsers, FiClipboard, FiTarget, FiActivity, FiMessageSquare, FiShield, FiUserPlus,FiBarChart2,FiTrendingUp, FiUpload, FiUser } from 'react-icons/fi';
+import { useEffect, useRef, useState } from 'react';
+import { FiArrowRight, FiPlay, FiUsers, FiClipboard, FiTarget, FiActivity, FiMessageSquare, FiShield, FiUserPlus, FiBarChart2, FiTrendingUp, FiUpload, FiUser } from 'react-icons/fi';
 import { FaBrain } from "react-icons/fa";
 
 
@@ -18,6 +18,7 @@ const FootballMarquee = () => {
   ];
 
   const duplicatedTeams = [...teams, ...teams, ...teams];
+
 
   return (
     <div className="relative overflow-hidden py-16 md:py-20">
@@ -82,87 +83,83 @@ const Home = () => {
           style={{ y }}
           className="absolute inset-0 bg-gradient-to-br from-[#902bd1]/8 via-[#00d0cb]/8 to-transparent z-10"
         />
-
         {/* Hero Background Video */}
+
+
         <div className="absolute inset-0 w-full h-full">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"           // or "metadata" if file is very large
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
-            src="/vid/soccer1.mp4"
-            poster="/img/hero-soccer-field.png" // optional: fallback image while loading
-          >
-            {/* Optional: fallback content if video fails to load */}
-            <source src="/vid/soccer1.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
 
-          {/* Keep the exact same dark gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 z-10" />
-        </div>
+          <div className="relative min-h-screen w-full overflow-hidden bg-black">
+            {/* <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5"
+              style={{ backgroundImage: "url(/img/hero-soccer-field.png)" }}
+            /> */}
+            <div className="absolute inset-0 overflow-hidden">
+              <iframe
+                className="
+        absolute 
+        min-w-full min-h-full 
+        w-auto h-auto 
+        left-1/2 top-1/2 
+        -translate-x-1/2 -translate-y-1/2 
+        opacity-30
+        scale-110 md:scale-125 lg:scale-150   // increase scale on wider/taller screens if needed
+        pointer-events-none
+      "
+                src="https://www.youtube.com/embed/ZH9jq2IGkRE?autoplay=1&mute=1&controls=0&loop=1&playlist=ZH9jq2IGkRE&modestbranding=1&rel=0&iv_load_policy=3&showinfo=0&disablekb=1&fs=0"
+                title="Background soccer video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowFullScreen
+              />
+            </div>
+            </div>
+            </div>
 
-        {/* Content layer – increase z-index if needed, but z-10 on overlays should be enough */}
-        <div className="relative z-20 text-center max-w-6xl mx-auto">  {/* ← bumped z-index slightly for safety */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className={`text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-black pb-4 mb-10 ${gradientText} drop-shadow-[0_12px_40px_rgba(144,43,209,0.45)]`}
-          >
-            Nunaini – AI-Powered Football Intelligence
-          </motion.h1>
+          {/* Content layer – increase z-index if needed, but z-10 on overlays should be enough */}
+          <div className="relative z-20 text-center max-w-6xl mx-auto">  {/* ← bumped z-index slightly for safety */}
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className={`text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-black pb-4 mb-10 ${gradientText} drop-shadow-[0_12px_40px_rgba(144,43,209,0.45)]`}
+            >
+              Nunaini – AI-Powered Football Intelligence
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-16 font-light"
-          >
-            Unlock deeper insights. Elevate performance. Transform the game with automated video analysis, real-time feedback, and intelligent assistance tailored for admins, coaches, and players.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-16 font-light"
+            >
+              Unlock deeper insights. Elevate performance. Transform the game with automated video analysis, real-time feedback, and intelligent assistance tailored for admins, coaches, and players.
+            </motion.p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6 md:gap-10">
-            <motion.div whileHover={{ scale: 1.06, y: -4 }} whileTap={{ scale: 0.96 }}>
-              <Link
-                to="/signup"
-                className={`inline-flex items-center gap-4 px-12 py-6 rounded-2xl font-bold text-xl bg-gradient-to-r from-[#902bd1] via-[#00d0cb] to-[#4fb0ff] text-white shadow-2xl shadow-[#902bd1]/40 hover:brightness-110 hover:shadow-[#00d0cb]/50 transition-all duration-400`}
-              >
-                <FiArrowRight className="text-2xl" />
-                Get Started
-              </Link>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row justify-center gap-6 md:gap-10">
+              <motion.div whileHover={{ scale: 1.06, y: -4 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  to="/signup"
+                  className={`inline-flex items-center gap-4 px-12 py-6 rounded-2xl font-bold text-xl bg-gradient-to-r from-[#902bd1] via-[#00d0cb] to-[#4fb0ff] text-white shadow-2xl shadow-[#902bd1]/40 hover:brightness-110 hover:shadow-[#00d0cb]/50 transition-all duration-400`}
+                >
+                  <FiArrowRight className="text-2xl" />
+                  Get Started
+                </Link>
+              </motion.div>
 
-            <motion.div whileHover={{ scale: 1.06, y: -4 }} whileTap={{ scale: 0.96 }}>
-              <Link
-                to="/demo"
-                className="inline-flex items-center gap-4 px-12 py-6 rounded-2xl font-bold text-xl bg-gray-900/80 backdrop-blur-2xl border-2 border-gray-700/50 hover:border-[#00d0cb]/70 text-white shadow-xl hover:shadow-[#00d0cb]/30 transition-all duration-400"
-              >
-                <FiPlay className="text-2xl" />
-                Interactive Demo
-              </Link>
-            </motion.div>
+              <motion.div whileHover={{ scale: 1.06, y: -4 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  to="/demo"
+                  className="inline-flex items-center gap-4 px-12 py-6 rounded-2xl font-bold text-xl bg-gray-900/80 backdrop-blur-2xl border-2 border-gray-700/50 hover:border-[#00d0cb]/70 text-white shadow-xl hover:shadow-[#00d0cb]/30 transition-all duration-400"
+                >
+                  <FiPlay className="text-2xl" />
+                  Interactive Demo
+                </Link>
+              </motion.div>
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Trusted by / Marquee */}
-      {/* <section className="relative py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className={`text-4xl md:text-5xl lg:text-6xl font-black text-center mb-16 pb-4 ${gradientText}`}
-          >
-            Trusted by Elite Clubs
-          </motion.h2>
 
-          <FootballMarquee />
-        </div>
-      </section> */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         {/* Subtle background texture/gradient for depth */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(144,43,209,0.08),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(0,208,203,0.06),transparent_50%)] pointer-events-none" />
@@ -273,7 +270,7 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-10 lg:gap-14">
             {[
-              
+
               {
                 title: "Admins / Academies",
                 icon: FiUsers,
@@ -493,7 +490,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent/0" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-white font-semibold text-lg drop-shadow-md">
-                    Advanced Heatmaps 
+                    Advanced Heatmaps
                   </p>
                 </div>
               </div>
@@ -507,82 +504,82 @@ const Home = () => {
 
       {/* How It Works Section */}
       <section className="relative py-28 md:py-40 bg-gradient-to-b from-[#0a0f1f] via-[#05070f] to-[#0a0f1f] overflow-hidden">
-  {/* Subtle background accents */}
-  <div className="absolute inset-0 pointer-events-none">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(144,43,209,0.07),transparent_45%)]" />
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_75%,rgba(0,208,203,0.06),transparent_50%)]" />
-  </div>
+        {/* Subtle background accents */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(144,43,209,0.07),transparent_45%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_75%,rgba(0,208,203,0.06),transparent_50%)]" />
+        </div>
 
-  <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-    <div className="text-center mb-16 md:mb-24">
-      <motion.h2
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tight ${gradientText} bg-clip-text text-transparent drop-shadow-xl`}
-      >
-        From Upload to Victory in Minutes
-      </motion.h2>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16 md:mb-24">
+            <motion.h2
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tight ${gradientText} bg-clip-text text-transparent drop-shadow-xl`}
+            >
+              From Upload to Victory in Minutes
+            </motion.h2>
 
-      <motion.p
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="mt-6 text-xl md:text-2xl text-gray-300 font-light max-w-4xl mx-auto leading-relaxed"
-      >
-        Upload your footage → Let AI do the heavy lifting → Get actionable insights → Train smarter and win more.
-      </motion.p>
-    </div>
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="mt-6 text-xl md:text-2xl text-gray-300 font-light max-w-4xl mx-auto leading-relaxed"
+            >
+              Upload your footage → Let AI do the heavy lifting → Get actionable insights → Train smarter and win more.
+            </motion.p>
+          </div>
 
-    {/* Timeline / Process Flow */}
-    <div className="relative">
-      {/* Connecting line (desktop horizontal, mobile vertical) */}
-      <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
-      <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gray-700 to-transparent" />
+          {/* Timeline / Process Flow */}
+          <div className="relative">
+            {/* Connecting line (desktop horizontal, mobile vertical) */}
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
+            <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gray-700 to-transparent" />
 
-      <div className="grid md:grid-cols-5 gap-10 md:gap-6 relative">
-        {[
-          {
-            step: "1",
-            title: "Create Account",
-            desc: "Sign up in seconds and set up your club or personal profile.",
-            icon: FiUserPlus
-          },
-          {
-            step: "2",
-            title: "Upload Footage",
-            desc: "Drag & drop match videos, training sessions or highlights — any format.",
-            icon: FiUpload
-          },
-          {
-            step: "3",
-            title: "AI Analysis",
-            desc: "Our models automatically detect events, tag moments, generate heatmaps & stats.",
-            icon: FaBrain
-          },
-          {
-            step: "4",
-            title: "Get Insights",
-            desc: "Instant reports, personalized recommendations, tactical breakdowns & visualizations.",
-            icon: FiBarChart2
-          },
-          {
-            step: "5",
-            title: "Act & Improve",
-            desc: "Apply feedback in training, track progress, and elevate performance over time.",
-            icon: FiTrendingUp
-          }
-        ].map((item, i) => (
-          <motion.div
-            key={item.step}
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: i * 0.12, ease: "easeOut" }}
-            whileHover={{ y: -12, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-            className={`
+            <div className="grid md:grid-cols-5 gap-10 md:gap-6 relative">
+              {[
+                {
+                  step: "1",
+                  title: "Create Account",
+                  desc: "Sign up in seconds and set up your club or personal profile.",
+                  icon: FiUserPlus
+                },
+                {
+                  step: "2",
+                  title: "Upload Footage",
+                  desc: "Drag & drop match videos, training sessions or highlights — any format.",
+                  icon: FiUpload
+                },
+                {
+                  step: "3",
+                  title: "AI Analysis",
+                  desc: "Our models automatically detect events, tag moments, generate heatmaps & stats.",
+                  icon: FaBrain
+                },
+                {
+                  step: "4",
+                  title: "Get Insights",
+                  desc: "Instant reports, personalized recommendations, tactical breakdowns & visualizations.",
+                  icon: FiBarChart2
+                },
+                {
+                  step: "5",
+                  title: "Act & Improve",
+                  desc: "Apply feedback in training, track progress, and elevate performance over time.",
+                  icon: FiTrendingUp
+                }
+              ].map((item, i) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.8, delay: i * 0.12, ease: "easeOut" }}
+                  whileHover={{ y: -12, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                  className={`
               group relative flex flex-col items-center text-center
               md:pt-12 pt-0
               px-6 pb-8 rounded-3xl
@@ -591,9 +588,9 @@ const Home = () => {
               hover:border-[#00d0cb]/40 hover:shadow-2xl hover:shadow-[#00d0cb]/15
               transition-all duration-500
             `}
-          >
-            {/* Step number circle */}
-            <div className={`
+                >
+                  {/* Step number circle */}
+                  <div className={`
               absolute md:top-0 -top-5
               w-16 h-16 md:w-20 md:h-20
               rounded-full flex items-center justify-center
@@ -604,46 +601,40 @@ const Home = () => {
               group-hover:scale-110 group-hover:rotate-3
               transition-all duration-500 z-10
             `}>
-              {item.step}
+                    {item.step}
+                  </div>
+
+                  {/* Icon */}
+                  <div className="mt-12 md:mt-16 mb-6">
+                    <item.icon
+                      size={48}
+                      className="text-[#00d0cb] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-400"
+                    />
+                  </div>
+
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-[#00d0cb] group-hover:to-white group-hover:bg-clip-text transition-all">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-gray-300 text-base md:text-lg leading-relaxed font-light">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
             </div>
+          </div>
 
-            {/* Icon */}
-            <div className="mt-12 md:mt-16 mb-6">
-              <item.icon
-                size={48}
-                className="text-[#00d0cb] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-400"
-              />
-            </div>
-
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-[#00d0cb] group-hover:to-white group-hover:bg-clip-text transition-all">
-              {item.title}
-            </h3>
-
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed font-light">
-              {item.desc}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-
-    {/* Optional CTA at bottom */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 0.6 }}
-      className="text-center mt-16 md:mt-24"
-    >
-      {/* <Link
-        to="/pricing"
-        className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold text-xl bg-gradient-to-r from-[#902bd1] via-[#00d0cb] to-[#4fb0ff] text-white shadow-2xl shadow-[#902bd1]/30 hover:shadow-[#00d0cb]/50 hover:scale-105 transition-all duration-400"
-      >
-        Get Started Now ! <FiArrowRight size={24} />
-      </Link> */}
-      <Link
-  to="/pricing"
-  className={`
+          {/* Optional CTA at bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-center mt-16 md:mt-24"
+          >
+            <Link
+              to="/pricing"
+              className={`
     inline-flex items-center gap-3 px-10 py-5 rounded-2xl 
     font-bold text-xl text-white
     bg-gradient-to-r from-[#902bd1] via-[#00d0cb] to-[#4fb0ff]
@@ -653,15 +644,15 @@ const Home = () => {
     transition-all duration-500
     animate-float-gentle
   `}
->
-  Get Started Now! <FiArrowRight size={24} />
-</Link>
-    </motion.div>
-  </div>
-</section>
+            >
+              Get Started Now! <FiArrowRight size={24} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Final CTA Section */}
-      
+
       <section className="relative py-40 overflow-hidden "> {/* removed bg-gradient from section */}
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
